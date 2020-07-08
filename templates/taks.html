@@ -1,0 +1,18 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        
+        {% for task in tasks %}
+
+        {{% task.tasks_name %}}
+        {{% task.category_name %}}
+        {{% task.tasks_description %}}
+        {{% task.is_urgent %}}
+        {{% task.due_date %}}
+
+        {% end for %}
+    </body>
+</html>
