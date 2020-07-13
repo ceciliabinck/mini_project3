@@ -14,7 +14,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 mongo = PyMongo(app)
 
 @app.route('/')
-@app.route('/get tasks')
+@app.route('/get_tasks')
 def get_tasks():
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
 
@@ -23,6 +23,13 @@ def add_task():
     _categories = mongo.db.categories.find()
     category_list = [category for category in _categories]
     return render_template("addtask.html", categories=category_list)
+
+
+@app.route('/insert_task', methods=['POST'])
+def insert_task():
+    tasks = mongo.db.tasks
+    tasks.insert_one(request.form.to_dict())
+    return redirect(url_for('get_tasks'))
 
 
 if __name__ == "__main__":
