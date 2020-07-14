@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="row">
 <ul class="collapsible" data-collapsible="accordion">
 
     {% for task in tasks %}
@@ -9,7 +9,7 @@
             <div class="col s3">
                 <span class="material-icons">expand_more</span>
                 <a class="waves-effect waves-light btn btn_small">Done</a>
-                <a class="waves-effect waves-light btn btn_small blue">Edit</a>
+                <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn btn_small blue">Edit</a>
             </div>
             <div class="task_header col s9">
                 <strong>{{task.task_name}}</strong> - {{task.due_date}}
@@ -21,6 +21,6 @@
     </li>
     {% endfor %}
 </ul>
-
+</div>
 {% endblock %}
     
