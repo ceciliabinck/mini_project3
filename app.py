@@ -53,6 +53,12 @@ def update_task(task_id):
     return redirect(url_for('get_tasks'))
 
 
+@app.route('/get_categories')
+def get_categories():
+    return render_template("categories.html",
+    categories=mongo.db.categories.find())
+
+
 @app.route('/delete_task/<task_id>')
 def delete_task(task_id):
     mongo.db.tasks.remove({'_id': ObjectId(task_id)})
