@@ -58,6 +58,8 @@ def delete_task(task_id):
     mongo.db.tasks.remove({'_id': ObjectId(task_id)})
     return redirect(url_for('get_tasks'))
 
+#------ categories ------#
+
 @app.route('/get_categories')
 def get_categories():
     return render_template('categories.html',
@@ -76,6 +78,24 @@ def update_category(category_id):
         {'_id': ObjectId(category_id)},
         {'category_name': request.form.get('category_name')})
     return redirect(url_for('get_categories'))
+
+
+@app.route('/delete_category/<category_id>')
+def delete_category(category_id):
+    mongo.db.categories.remove({'_id': ObjectId(category_id)})
+    return redirect(url_for('get_categories'))
+
+
+@app.route('/insert_category', methods=['POST'])
+def insert_category():
+    category_doc = {'category_name': request.form.get('category_name')}
+    mongo.db.categories.insert_one(category_doc)
+    return redirect(url_for('get_categories'))
+
+
+@app.route('/add_category')
+def add_category():
+    return render_template("addcategory.html")
 
 
 if __name__ == "__main__":
